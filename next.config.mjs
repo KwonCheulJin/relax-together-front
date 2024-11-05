@@ -17,8 +17,7 @@ const nextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination:
-          'http://ec2-13-124-17-98.ap-northeast-2.compute.amazonaws.com:8080/api/:path*',
+        destination: `${process.env.NEXT_PUBLIC_API_URL}/api/:path*`,
       },
     ];
   },

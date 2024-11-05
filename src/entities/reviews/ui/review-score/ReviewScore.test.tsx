@@ -1,5 +1,4 @@
 import Provider from '@/app/provider';
-import { BASE_URL } from '@/shared/lib/constants';
 import { server } from '@/shared/mocks/node';
 import { render, screen } from '@testing-library/react';
 import { rest } from 'msw';
@@ -38,7 +37,7 @@ describe('ReviewScore Component', () => {
     });
     // 핸들러를 초기화하여 빈 데이터 반환
     server.use(
-      rest.get(`${BASE_URL}/api/reviews/scores`, (req, res, ctx) => {
+      rest.get(`api/reviews/scores`, (req, res, ctx) => {
         return res(ctx.json({}));
       }),
     );
@@ -51,7 +50,7 @@ describe('ReviewScore Component', () => {
 
   test('데이터를 받아서 점수를 화면에 보여주고 평균을 계산한다.', async () => {
     server.use(
-      rest.get(`${BASE_URL}/api/reviews/scores`, (req, res, ctx) => {
+      rest.get(`api/reviews/scores`, (req, res, ctx) => {
         return res(
           ctx.json({
             fivePoints: 79,

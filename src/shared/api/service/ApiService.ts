@@ -1,5 +1,5 @@
 import { Tokens } from '@/entities/auth/api/service/AuthApiService';
-import { ACCESS_TOKEN_KEY, BASE_URL } from '@/shared/lib/constants';
+import { ACCESS_TOKEN_KEY } from '@/shared/lib/constants';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export default class ApiService {
@@ -60,7 +60,7 @@ export default class ApiService {
         const originalRequest = error.config;
 
         if (
-          error.config.url !== `${BASE_URL}/api/auths/login` &&
+          error.config.url !== `api/auths/login` &&
           error.response &&
           error.response.status === 401 &&
           !error.response.data.message.includes('토큰이 만료되었습니다') &&
@@ -155,9 +155,7 @@ export default class ApiService {
 
   private async refreshToken() {
     try {
-      const response = await this.get<Tokens>(
-        `${BASE_URL}/api/auths/refresh-token`,
-      );
+      const response = await this.get<Tokens>(`api/auths/refresh-token`);
       return response;
     } catch (error) {
       throw error;

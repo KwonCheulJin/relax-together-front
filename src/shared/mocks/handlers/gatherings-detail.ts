@@ -3,12 +3,12 @@ import {
   dummyParticipantList,
 } from '@/shared/fixture/information';
 import { dummyReviews } from '@/shared/fixture/reviews';
-import { BASE_URL, REVIEWS_PER_PAGE } from '@/shared/lib/constants';
+import { REVIEWS_PER_PAGE } from '@/shared/lib/constants';
 import { rest } from 'msw';
 
 export const gatheringsDetailHandler = [
   // 모임 상세 조회
-  rest.get(`${BASE_URL}/api/gatherings/:id`, (req, res, ctx) => {
+  rest.get(`api/gatherings/:id`, (req, res, ctx) => {
     const { id } = req.params;
     if (id === 'invalid-id') {
       return res(
@@ -20,7 +20,7 @@ export const gatheringsDetailHandler = [
   }),
 
   // 특정 모임의 참가자 목록 조회
-  rest.get(`${BASE_URL}/api/gatherings/:id/participants`, (req, res, ctx) => {
+  rest.get(`api/gatherings/:id/participants`, (req, res, ctx) => {
     const { id } = req.params;
     if (id === 'invalid-id') {
       return res(
@@ -32,7 +32,7 @@ export const gatheringsDetailHandler = [
   }),
 
   // 모임 리뷰 목록 조회
-  rest.get(`${BASE_URL}/api/gatherings/:id/reviews`, (req, res, ctx) => {
+  rest.get(`api/gatherings/:id/reviews`, (req, res, ctx) => {
     const { id } = req.params;
 
     if (id === 'invalid-id') {
@@ -59,7 +59,7 @@ export const gatheringsDetailHandler = [
   }),
 
   // 모임 참여
-  rest.post(`${BASE_URL}/api/gatherings/:id/join`, (req, res, ctx) => {
+  rest.post(`api/gatherings/:id/join`, (req, res, ctx) => {
     const { id } = req.params;
     if (id === 'invalid-id') {
       return res(
@@ -76,7 +76,7 @@ export const gatheringsDetailHandler = [
   }),
 
   // 모임 참여 취소
-  rest.delete(`${BASE_URL}/api/gatherings/:id/leave`, (req, res, ctx) => {
+  rest.delete(`api/gatherings/:id/leave`, (req, res, ctx) => {
     const { id } = req.params;
     if (id === 'invalid-id') {
       return res(
@@ -93,7 +93,7 @@ export const gatheringsDetailHandler = [
   }),
 
   // 모임 취소
-  rest.put(`${BASE_URL}/api/gatherings/:id/cancel`, (req, res, ctx) => {
+  rest.put(`api/gatherings/:id/cancel`, (req, res, ctx) => {
     const { id } = req.params;
     if (id === 'invalid-id') {
       return res(
