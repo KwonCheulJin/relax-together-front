@@ -42,7 +42,7 @@ const paperLogyExtraBold = localFont({
 });
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL || 'https://relax-together.web.app';
+  process.env.NEXT_PUBLIC_BASE_URL || 'https://relax-together.vercel.app';
 const siteName = '같이 달램';
 
 export const metadata: Metadata = {

@@ -18,14 +18,14 @@ class ReviewsApiService extends ApiService {
     sortOrder,
   }: FetchParams & Partial<FilterParams>) {
     const response = await this.get<Response<Review>>(
-      `api/reviews?type=${type}${location ? `&location=${location}` : ''}${date ? `&date=${date}` : ''}&page=${pageParam}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+      `/api/reviews?type=${type}${location ? `&location=${location}` : ''}${date ? `&date=${date}` : ''}&page=${pageParam}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
     );
     return response;
   }
 
   async getReviewScore({ type }: Partial<FilterParams>) {
     const response = await this.get<ReviewScore>(
-      `api/reviews/scores?type=${type}`,
+      `/api/reviews/scores?type=${type}`,
     );
     return response;
   }

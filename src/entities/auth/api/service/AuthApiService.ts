@@ -17,7 +17,7 @@ class SignupApiService extends ApiService {
     name: string;
     companyName: string;
   }) {
-    const response = await this.post<SignupUser>(`api/auths/signup`, {
+    const response = await this.post<SignupUser>(`/api/auths/signup`, {
       email,
       password,
       name,
@@ -26,19 +26,19 @@ class SignupApiService extends ApiService {
     return response;
   }
   async VerifyUniqueEmail(email: string) {
-    const response = await this.post(`api/auths/check-email`, {
+    const response = await this.post(`/api/auths/check-email`, {
       email,
     });
     return response;
   }
   async EmailAuth(email: string) {
-    const response = await this.post(`api/email/signup`, {
+    const response = await this.post(`/api/email/signup`, {
       email,
     });
     return response;
   }
   async VerifyEmailAuthCode(code: string) {
-    const response = await this.post(`api/verify-code`, {
+    const response = await this.post(`/api/verify-code`, {
       code,
     });
     return response;
@@ -53,7 +53,7 @@ class SigninApiService extends ApiService {
     super();
   }
   async signin({ email, password }: SigninUser) {
-    const response = await this.post<Tokens>(`api/auths/login`, {
+    const response = await this.post<Tokens>(`/api/auths/login`, {
       email,
       password,
     });
@@ -70,7 +70,7 @@ export class ForgotPasswordApiService extends ApiService {
 
   // 비밀번호 찾기 이메일 전송 API
   async sendForgotPasswordEmail(email: string) {
-    const response = await this.post(`api/email/password-change`, {
+    const response = await this.post(`/api/email/password-change`, {
       email,
     });
     return response;
@@ -82,7 +82,7 @@ export class ForgotPasswordApiService extends ApiService {
     newPassword,
     passwordCheck,
   }: RequestResetPassword) {
-    const response = await this.post(`api/auths/change-password`, {
+    const response = await this.post(`/api/auths/change-password`, {
       email,
       newPassword,
       passwordCheck,

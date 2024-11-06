@@ -20,13 +20,13 @@ class GatheringsApiService extends ApiService {
     sortOrder,
   }: FetchParams & Partial<FilterParams>) {
     const response = await this.get<Response<Gathering>>(
-      `api/gatherings?type=${type}${location ? `&location=${location}` : ''}${date ? `&date=${date}` : ''}&page=${pageParam}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
+      `/api/gatherings?type=${type}${location ? `&location=${location}` : ''}${date ? `&date=${date}` : ''}&page=${pageParam}&size=${size}&sortBy=${sortBy}&sortOrder=${sortOrder}`,
     );
     return response;
   }
   async createGathering(data: CreateGathering) {
     const response = await this.post<Response<Gathering>>(
-      `api/gatherings`,
+      `/api/gatherings`,
       data,
     );
     return response;

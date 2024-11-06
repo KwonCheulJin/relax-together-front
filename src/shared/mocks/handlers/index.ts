@@ -1,6 +1,6 @@
 import { gatheringsContents } from '@/shared/fixture/gatherings';
 import { dummyScore } from '@/shared/fixture/score';
-import { LIMIT } from '@/shared/lib/constants';
+import { BASE_URL, LIMIT } from '@/shared/lib/constants';
 import { commonHandler } from '@/shared/mocks/handlers/common';
 import { mypageHandler } from '@/shared/mocks/handlers/mypage';
 import mockInfiniteResponse from '@/shared/mocks/mockInfiniteResponse';
@@ -13,15 +13,15 @@ const handlers = [
   ...mypageHandler,
   ...gatheringsDetailHandler,
 
-  rest.post(`/api/auth/signup`, (req, res, ctx) =>
+  rest.post(`${BASE_URL}/api/auth/signup`, (req, res, ctx) =>
     res(ctx.status(201), ctx.json({ accessToken: 'Access-Token' })),
   ),
 
-  rest.get(`/api/reviews/scores`, async (req, res, ctx) => {
+  rest.get(`${BASE_URL}/api/reviews/scores`, async (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(dummyScore));
   }),
 
-  rest.get(`api/gatherings`, (req, res, ctx) => {
+  rest.get(`${BASE_URL}/api/gatherings`, (req, res, ctx) => {
     const page = parseInt(req.url.searchParams.get('page') || '0');
     const size = parseInt(req.url.searchParams.get('size') || LIMIT.toString());
 

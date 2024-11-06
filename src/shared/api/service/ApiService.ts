@@ -8,6 +8,7 @@ export default class ApiService {
   private refreshSubscribers: Array<(token: string) => void> = [];
   protected static instance: ApiService;
   protected axiosInstance: AxiosInstance = axios.create({
+    baseURL: `${process.env.NEXT_PUBLIC_API_URL}`,
     withCredentials: true,
     headers: {
       'Content-Type': 'application/json',
@@ -60,7 +61,7 @@ export default class ApiService {
         const originalRequest = error.config;
 
         if (
-          error.config.url !== `api/auths/login` &&
+          error.config.url !== `/api/auths/login` &&
           error.response &&
           error.response.status === 401 &&
           !error.response.data.message.includes('토큰이 만료되었습니다') &&
@@ -155,7 +156,7 @@ export default class ApiService {
 
   private async refreshToken() {
     try {
-      const response = await this.get<Tokens>(`api/auths/refresh-token`);
+      const response = await this.get<Tokens>(`/api/auths/refresh-token`);
       return response;
     } catch (error) {
       throw error;

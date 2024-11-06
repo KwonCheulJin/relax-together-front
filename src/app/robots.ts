@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: ['/mypage', '/reset-password'],
     },
-    sitemap: 'https://relax-together.web.app/sitemap.xml',
+    sitemap: 'https://relax-together.vercel.app/sitemap.xml',
   };
 }

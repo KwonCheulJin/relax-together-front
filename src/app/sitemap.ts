@@ -21,11 +21,11 @@ function isValidURL(string: string): boolean {
 }
 
 let BASE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL || 'https://relax-together.web.app';
+  process.env.NEXT_PUBLIC_BASE_URL || 'https://relax-together.vercel.app';
 
 if (!isValidURL(BASE_URL)) {
   console.warn('Invalid BASE_URL in sitemap generation, using default');
-  BASE_URL = 'https://relax-together.web.app';
+  BASE_URL = 'https://relax-together.vercel.app';
 }
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -69,7 +69,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     });
 
     const gatherings = response.content.map(gathering => ({
-      url: `${BASE_URL}/gatherings/${gathering.id}`,
+      url: `/gatherings/${gathering.id}`,
       lastModified: new Date(gathering.dateTime).toISOString(),
       changeFrequency: 'weekly' as Changefreq,
       priority: 0.8,

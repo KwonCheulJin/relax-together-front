@@ -17,7 +17,7 @@ class GatheringsDetailApiService extends ApiService {
   async getGatheringsInfo(id: string) {
     try {
       const response = await this.get<GatheringsInfoTypes>(
-        `api/gatherings/${id}`,
+        `/api/gatherings/${id}`,
       );
       return response.data;
     } catch (error) {
@@ -37,7 +37,7 @@ class GatheringsDetailApiService extends ApiService {
   } & PaginationParams) {
     try {
       const response = await this.get<ParticipantListTypes>(
-        `api/gatherings/${id}/participants?page=${page}&size=${size}`,
+        `/api/gatherings/${id}/participants?page=${page}&size=${size}`,
       );
       return response.data;
     } catch (error) {
@@ -55,7 +55,7 @@ class GatheringsDetailApiService extends ApiService {
     id: string;
     currentPage: number;
   }) {
-    const response = await this.get<Reviews>(`api/gatherings/${id}/reviews`, {
+    const response = await this.get<Reviews>(`/api/gatherings/${id}/reviews`, {
       params: {
         page: currentPage,
         size: REVIEWS_PER_PAGE,
@@ -65,17 +65,17 @@ class GatheringsDetailApiService extends ApiService {
   }
 
   async joinGathering(id: string) {
-    const response = await this.post(`api/gatherings/${id}/join`);
+    const response = await this.post(`/api/gatherings/${id}/join`);
     return response;
   }
 
   async leaveGathering(id: string) {
-    const response = await this.delete(`api/gatherings/${id}/leave`);
+    const response = await this.delete(`/api/gatherings/${id}/leave`);
     return response;
   }
 
   async cancelGathering(id: string) {
-    const response = await this.put(`api/gatherings/${id}/cancel`);
+    const response = await this.put(`/api/gatherings/${id}/cancel`);
     return response;
   }
 }
