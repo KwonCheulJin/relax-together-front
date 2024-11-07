@@ -61,7 +61,7 @@ export default class ApiService {
         const originalRequest = error.config;
 
         if (
-          error.config.url !== `/api/auths/login` &&
+          (error.config.url !== `/api/auths/login` || error.config.url !== `/api/auths/signup`) &&
           error.response &&
           error.response.status === 401 &&
           !error.response.data.message.includes('토큰이 만료되었습니다') &&
