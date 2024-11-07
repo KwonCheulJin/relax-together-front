@@ -6,6 +6,17 @@ const FALLBACK_FORGOT_PASSWORD_URL = '/forgot-password';
 const withAuthList = ['/mypage'];
 const withOutAuthList = ['/signin', '/signup', '/reset-password'];
 
+function parseCookies(cookieHeader: string | null): { [key: string]: string } {
+  const cookies: { [key: string]: string } = {};
+  if (cookieHeader) {
+    cookieHeader.split(';').forEach(cookie => {
+      const [name, value] = cookie.split('=').map(c => c.trim());
+      cookies[name] = decodeURIComponent(value);
+    });
+  }
+  return cookies;
+}
+
 const getEmail = async (token: string | null) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}/api/verify-token`,
@@ -24,7 +35,8 @@ const getEmail = async (token: string | null) => {
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  const isLoginUser = req.cookies.get('isLoginUser')?.value;
+  const cookies = parseCookies(req.headers.get('cookie'));
+  const isLoginUser = cookies['isLoginUser'];
 
   const targetPathname = pathname.split('/')[1];
   const isWithAuth = withAuthList.includes(`/${targetPathname}`);
@@ -32,7 +44,7 @@ export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
 
   if (isWithAuth) {
-    if (isLoginUser === 'false') {
+    if (isLoginUser !== 'true') {
       return NextResponse.redirect(new URL(FALLBACK_URL, req.url));
     }
   }
@@ -89,6 +101,8 @@ export async function middleware(req: NextRequest) {
     url.searchParams.set('filter', 'all');
     return NextResponse.redirect(url);
   }
+
+  return NextResponse.next();
 }
 
 export const config = {
