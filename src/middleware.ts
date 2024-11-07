@@ -43,16 +43,12 @@ export async function middleware(req: NextRequest) {
   const isWithOutAuth = withOutAuthList.includes(`/${targetPathname}`);
   const url = req.nextUrl.clone();
 
-  if (isWithAuth) {
-    if (isLoginUser !== 'true') {
-      return NextResponse.redirect(new URL(FALLBACK_URL, req.url));
-    }
+  if (isWithAuth && isLoginUser !== 'true') {
+    return NextResponse.redirect(new URL(FALLBACK_URL, req.url));
   }
 
-  if (isWithOutAuth) {
-    if (isLoginUser === 'true') {
-      return NextResponse.redirect(new URL(FALLBACK_URL, req.url));
-    }
+  if (isWithOutAuth && isLoginUser === 'true') {
+    return NextResponse.redirect(new URL(FALLBACK_URL, req.url));
   }
 
   if (url.pathname === '/mypage' && !url.searchParams.has('subPage')) {
